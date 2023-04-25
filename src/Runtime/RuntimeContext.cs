@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UniverseLib.Runtime
+namespace UniverseLib.Runtime;
+
+public enum RuntimeContext
 {
-    public enum RuntimeContext
-    {
-        Mono,
-        IL2CPP
-    }
+    Mono,
+    IL2CPP
 }

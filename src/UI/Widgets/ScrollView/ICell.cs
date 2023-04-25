@@ -6,15 +6,14 @@ using UnityEngine;
 using UniverseLib.UI.Models;
 using UniverseLib.UI.ObjectPool;
 
-namespace UniverseLib.UI.Widgets.ScrollView
+namespace UniverseLib.UI.Widgets.ScrollView;
+
+public interface ICell : IPooledObject
 {
-    public interface ICell : IPooledObject
-    {
-        bool Enabled { get; }
+    bool Enabled { get; }
 
-        RectTransform Rect { get; set; }
+    RectTransform Rect { get; set; }
 
-        void Enable();
-        void Disable();
-    }
+    void Enable();
+    void Disable();
 }

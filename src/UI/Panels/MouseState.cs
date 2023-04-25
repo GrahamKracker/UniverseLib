@@ -1,9 +1,8 @@
-﻿namespace UniverseLib.UI.Panels
+﻿namespace UniverseLib.UI.Panels;
+
+public enum MouseState
 {
-    public enum MouseState
-    {
-        Down,
-        Held,
-        NotPressed
-    }
+    Down,
+    Held,
+    NotPressed
 }

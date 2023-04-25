@@ -1,9 +1,8 @@
-﻿namespace UniverseLib.Input
+﻿namespace UniverseLib.Input;
+
+public enum InputType
 {
-    public enum InputType
-    {
-        InputSystem,
-        Legacy,
-        None
-    }
+    InputSystem,
+    Legacy,
+    None
 }

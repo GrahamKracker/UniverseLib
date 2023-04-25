@@ -4,58 +4,57 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace UniverseLib.UI.Models
+namespace UniverseLib.UI.Models;
+
+/// <summary>
+/// A class which can be used as an abstract UI object, which does not exist as a Component but which can receive Update calls.
+/// </summary>
+public abstract class UIBehaviourModel : UIModel
 {
-    /// <summary>
-    /// A class which can be used as an abstract UI object, which does not exist as a Component but which can receive Update calls.
-    /// </summary>
-    public abstract class UIBehaviourModel : UIModel
+    // Static 
+    static readonly List<UIBehaviourModel> Instances = new();
+
+    internal static void UpdateInstances()
     {
-        // Static 
-        static readonly List<UIBehaviourModel> Instances = new();
+        if (!Instances.Any())
+            return;
 
-        internal static void UpdateInstances()
+        try
         {
-            if (!Instances.Any())
-                return;
-
-            try
+            for (int i = Instances.Count - 1; i >= 0; i--)
             {
-                for (int i = Instances.Count - 1; i >= 0; i--)
+                UIBehaviourModel instance = Instances[i];
+                if (instance == null || !instance.UIRoot)
                 {
-                    UIBehaviourModel instance = Instances[i];
-                    if (instance == null || !instance.UIRoot)
-                    {
-                        Instances.RemoveAt(i);
-                        continue;
-                    }
-                    if (instance.Enabled)
-                        instance.Update();
+                    Instances.RemoveAt(i);
+                    continue;
                 }
-            }
-            catch (Exception ex)
-            {
-                Universe.Log(ex);
+                if (instance.Enabled)
+                    instance.Update();
             }
         }
+        catch (Exception ex)
+        {
+            Universe.Log(ex);
+        }
+    }
         
-        // Instance
+    // Instance
 
-        public UIBehaviourModel()
-        {
-            Instances.Add(this);
-        }
+    public UIBehaviourModel()
+    {
+        Instances.Add(this);
+    }
 
-        public virtual void Update()
-        {
-        }
+    public virtual void Update()
+    {
+    }
 
-        public override void Destroy()
-        {
-            if (Instances.Contains(this))
-                Instances.Remove(this);
+    public override void Destroy()
+    {
+        if (Instances.Contains(this))
+            Instances.Remove(this);
 
-            base.Destroy();
-        }
+        base.Destroy();
     }
 }
